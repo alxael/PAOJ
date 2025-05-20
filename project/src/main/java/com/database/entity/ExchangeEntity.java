@@ -1,6 +1,7 @@
-package com.database;
+package com.database.entity;
 
 import com.bank.Exchange;
+import com.database.Entity;
 
 import java.sql.Connection;
 import java.sql.ResultSet;

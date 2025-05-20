@@ -1,12 +1,16 @@
 package com.database;
 
 import com.exception.IdentifierNotFoundException;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
 public class Query {
+    private static final Logger log = LoggerFactory.getLogger(Query.class);
+
     private final Connection connection;
     private String query;
 
@@ -49,13 +53,13 @@ public class Query {
 
     public ResultSet executeSelect() throws SQLException {
         var statement = connection.createStatement();
-        // log stuff here
+        log.info("Executing select query: {}", query);
         return statement.executeQuery(query);
     }
 
     public void execute() throws SQLException {
         var statement = connection.createStatement();
-        // log stuff here
+        log.info("Executing query: {}", query);
         statement.executeUpdate(query);
     }
 }

@@ -1,6 +1,7 @@
-package com.database;
+package com.database.entity;
 
 import com.bank.Currency;
+import com.database.Entity;
 
 import java.sql.Connection;
 import java.sql.ResultSet;
@@ -34,7 +35,7 @@ public class CurrencyEntity extends Entity<Long, Currency> {
         return new SimpleEntry<>(result.getKey(), dataResult);
     }
 
-    public List<SimpleEntry<String, String>> getCurrencyDisplayData() throws SQLException {
+    public List<SimpleEntry<String, String>> getCurrencyDisplayData() {
         var result = new ArrayList<SimpleEntry<String, String>>();
         for (var value : data.values()) {
             result.add(new SimpleEntry<>(value.getCode(), value.getName()));

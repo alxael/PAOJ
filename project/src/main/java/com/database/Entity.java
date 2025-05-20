@@ -20,7 +20,7 @@ public abstract class Entity<Key, Data> implements Serializable {
     protected Map<Key, Data> data;
     protected String table;
 
-    private static LocalDateTime stringToLocalDateTime(String date, String format) {
+    protected static LocalDateTime stringToLocalDateTime(String date, String format) {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern(format);
         return LocalDateTime.parse(date, formatter);
     }
@@ -108,7 +108,7 @@ public abstract class Entity<Key, Data> implements Serializable {
     }
 
     // delete operations
-    protected void deleteRecordsByProperty(String property, String value) throws SQLException {
+    public void deleteRecordsByProperty(String property, String value) throws SQLException {
         Query query = new Query(connection, "DELETE FROM :table WHERE :property=:value;");
         query.setParameter("table", table, false)
                 .setParameter("property", property, false)
@@ -128,6 +128,10 @@ public abstract class Entity<Key, Data> implements Serializable {
 
     public Map<Key, Data> getData() {
         return data;
+    }
+
+    public SimpleEntry<Key, Data> getRecordById(Key id) throws SQLException {
+        return getRecordById(id, false);
     }
 
     public SimpleEntry<Key, Data> getRecordById(Key id, boolean cached) throws SQLException {

@@ -7,7 +7,7 @@ import java.time.format.DateTimeFormatter;
 public class Transaction implements Serializable {
     private Account inbound;
     private Account outbound;
-    private double amount;
+    private Double amount;
     private LocalDateTime date;
 
     public Transaction(Account inbound, Account outbound, double amount, LocalDateTime date) {
@@ -21,11 +21,11 @@ public class Transaction implements Serializable {
         this.date = LocalDateTime.now();
     }
 
-    public double getAmount() {
+    public Double getAmount() {
         return amount;
     }
 
-    public void setAmount(double amount) {
+    public void setAmount(Double amount) {
         this.amount = amount;
     }
 

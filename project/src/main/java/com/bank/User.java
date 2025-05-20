@@ -5,7 +5,6 @@ import com.validation.Validator;
 import java.io.Serializable;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
-import java.util.Arrays;
 
 public class User implements Serializable {
     private Country country;
@@ -16,18 +15,16 @@ public class User implements Serializable {
 
     private String hashPassword(String password) {
         try {
-//            var secureRandom = new SecureRandom();
-//            byte[] salt = new byte[16];
-//            secureRandom.nextBytes(salt);
-
             var messageDigest = MessageDigest.getInstance("SHA-512");
-//            messageDigest.update(salt);
-
             byte[] hashedPassword = messageDigest.digest(password.getBytes());
 
-            return Arrays.toString(hashedPassword);
+            var stringBuilder = new StringBuilder();
+            for (byte b : hashedPassword) {
+                stringBuilder.append(String.format("%02x", b));
+            }
+            return stringBuilder.toString();
         } catch (NoSuchAlgorithmException exception) {
-            return null;
+            return "";
         }
     }
 
@@ -97,6 +94,10 @@ public class User implements Serializable {
         this.lastName = lastName;
     }
 
+    public String getFullName() {
+        return firstName + " " + lastName;
+    }
+
     public String getPassword() {
         return password;
     }
@@ -122,13 +123,8 @@ public class User implements Serializable {
         return email.hashCode();
     }
 
-    boolean authenticate(String password) {
-        try {
-            var messageDigest = MessageDigest.getInstance("SHA-512");
-            byte[] hashedPassword = messageDigest.digest(password.getBytes());
-            return Arrays.toString(hashedPassword).equals(password);
-        } catch (NoSuchAlgorithmException exception) {
-            return false;
-        }
+    public boolean authenticate(String password) {
+        var passwordHashed = hashPassword(password);
+        return this.password.compareTo(passwordHashed) == 0;
     }
 }

@@ -97,10 +97,10 @@ public class Country implements Serializable {
                 numberString.append(currentChar);
             }
             if (isUpperCase(currentChar)) {
-                numberString.append((char) (currentChar - 'A'));
+                numberString.append((int) currentChar - (int) 'A');
             }
             if (isLowerCase(currentChar)) {
-                numberString.append((char) (currentChar - 'a'));
+                numberString.append((int) currentChar - (int) 'a');
             }
         }
 
@@ -165,6 +165,6 @@ public class Country implements Serializable {
             checkDigits = "0" + checkDigits;
         }
 
-        return code + checkDigits + prefixAddedIBAN;
+        return code + checkDigits + partialIBAN;
     }
 }

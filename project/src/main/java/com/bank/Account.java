@@ -6,11 +6,11 @@ public class Account implements Serializable {
     private Currency currency;
     private User user;
     private String IBAN;
-    private double amount;
+    private Double amount;
     private String firstName, lastName;
 
     // constructor for existing account
-    public Account(Currency currency, User user, String IBAN, double amount, String firstName, String lastName) {
+    public Account(Currency currency, User user, String IBAN, Double amount, String firstName, String lastName) {
         this.currency = currency;
         this.user = user;
         this.IBAN = IBAN;
@@ -26,18 +26,18 @@ public class Account implements Serializable {
         this.firstName = firstName;
         this.lastName = lastName;
         this.IBAN = user.getCountry().generateIBAN();
-        this.amount = 0;
+        this.amount = 0.0;
     }
 
     public Account() {
-        this.amount = 0;
+        this.amount = 0.0;
     }
 
-    public double getAmount() {
+    public Double getAmount() {
         return amount;
     }
 
-    public void setAmount(double amount) {
+    public void setAmount(Double amount) {
         this.amount = amount;
     }
 
